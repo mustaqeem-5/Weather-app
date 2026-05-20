@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather UI</title>
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/1146/1146869.png">
+
+    <!-- Tailwind -->
+    <link rel="stylesheet" href="src/output.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" /> </head>
+
+<body class="bg-[#edf3f8] overflow-x-hidden duration-300">
+
+    <!-- Navbar -->
+    <nav class="bg-linear-to-r from-blue-500 to-blue-700 px-4 md:px-6 py-3 flex flex-col md:flex-row items-center justify-between gap-3 shadow-lg">
+
+        <!-- Logo -->
+        <div class="flex items-center gap-2 text-white cursor-pointer">
+            <i class="fa-solid fa-cloud-sun text-2xl"></i>
+            <h1 class="text-2xl font-semibold tracking-wide"> WeatherNow </h1>
+        </div>
+
+        <!-- Search -->
+        <div class="w-full md:w-90 h-12 bg-white rounded-xl flex items-center justify-between px-4 shadow-md hover:shadow-xl duration-300">
+            <input type="text" id="city" placeholder="Enter city name..." class="outline-none">
+            <i id="searchBtn" class="fa-solid fa-magnifying-glass text-lg text-slate-700 cursor-pointer hover:scale-110 duration-300"></i>
+        </div>
+    </nav>
+
+    <!-- Main -->
+    <div class="max-w-6xl mx-auto p-3 space-y-4">
+
+        <!-- Main Weather Card -->
+        <div class="bg-white rounded-2xl p-4 shadow-sm hover:shadow-xl duration-300 hover:-translate-y-1">
+            <div class="grid lg:grid-cols-3 gap-4 items-center">
+
+                <!-- Left -->
+                <div>
+                    <h2 id="cityName" class="text-xl md:text-2xl font-semibold flex items-center gap-2">
+            <i class="fa-solid fa-location-dot text-blue-500"></i> Karachi
+          </h2>
+                    <p id="time" class="text-gray-500 text-sm mt-2"> May 22, 2024 • 2:30 PM </p>
+                    <h1 id="temp" class="text-[65px] leading-none font-bold mt-3"> 32
+           <span class="text-3xl">°C</span>
+          </h1>
+                    <h3 id="condition" class="text-2xl font-medium mt-2"> Clear Sky </h3>
+                    <div class="flex items-center gap-2">
+                        <p class="text-gray-500 text-lg mt-1"> Feels like </p>
+                        <span id="feels1" class="text-gray-500 text-lg mt-1"> 35°C </span>
+                    </div>
+                </div>
+
+                <!-- Center -->
+                <div class="flex justify-center">
+                    <img id="weatherIcon" src="https://cdn-icons-png.flaticon.com/512/979/979585.png" class="w-32 hover:scale-110 duration-300 drop-shadow-lg" />
+                </div>
+
+                <!-- Right -->
+                <div class="space-y-4 lg:border-l border-gray-200 lg:pl-4">
+
+                    <!-- Humidity -->
+                    <div class="flex items-center justify-between hover:bg-slate-50 p-2 rounded-lg duration-300">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-droplet text-blue-500 text-lg"></i>
+                            <span class="text-base"> Humidity </span>
+                        </div>
+                        <span id="humidity" class="text-base font-medium"> 65% </span>
+                    </div>
+
+                    <!-- Wind -->
+                    <div class="flex items-center justify-between hover:bg-slate-50 p-2 rounded-lg duration-300">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-wind text-blue-500 text-lg"></i>
+                            <span class="text-base"> Wind Speed </span>
+                        </div>
+                        <span id="wind" class="text-base font-medium"> 12 km/h </span>
+                    </div>
+
+                    <!-- Pressure -->
+                    <div class="flex items-center justify-between hover:bg-slate-50 p-2 rounded-lg duration-300">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-gauge text-blue-500 text-lg"></i>
+                            <span class="text-base"> Pressure </span>
+                        </div>
+                        <span id="pressure" class="text-base font-medium"> 1012 hPa </span>
+                    </div>
+
+                    <!-- Feels -->
+                    <div class="flex items-center justify-between hover:bg-slate-50 p-2 rounded-lg duration-300">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-temperature-half text-red-500 text-lg"></i>
+                            <span class="text-base"> Feels Like </span>
+                        </div>
+                        <span id="feels" class="text-base font-medium"> 35°C </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hourly Forecast -->
+        <div class="bg-white rounded-2xl p-4 shadow-sm">
+            <h2 class="text-xl font-semibold mb-4"> Hourly Forecast </h2>
+            <div id="hourly" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2">
+
+                <!-- Card -->
+                <div class="border rounded-xl p-3 text-center hover:bg-blue-50 hover:scale-105 duration-300 cursor-pointer">
+                    <h3 class="text-sm font-medium"> 2 PM </h3>
+                    <i class="fa-solid fa-sun text-yellow-400 text-3xl my-3"></i>
+                    <p class="text-lg"> 32°C </p>
+                </div>
+
+                <!-- Card -->
+                <div class="border rounded-xl p-3 text-center hover:bg-blue-50 hover:scale-105 duration-300 cursor-pointer">
+                    <h3 class="text-sm font-medium"> 3 PM </h3>
+                    <i class="fa-solid fa-sun text-yellow-400 text-3xl my-3"></i>
+                    <p class="text-lg"> 31°C </p>
+                </div>
+
+                <!-- Card -->
+                <div class="border rounded-xl p-3 text-center hover:bg-blue-50 hover:scale-105 duration-300 cursor-pointer">
+                    <h3 class="text-sm font-medium"> 4 PM </h3>
+                    <i class="fa-solid fa-cloud-sun text-yellow-400 text-3xl my-3"></i>
+                    <p class="text-lg"> 31°C </p>
+                </div>
+
+                <!-- Card -->
+                <div class="border rounded-xl p-3 text-center hover:bg-blue-50 hover:scale-105 duration-300 cursor-pointer">
+                    <h3 class="text-sm font-medium"> 5 PM </h3> <i class="fa-solid fa-cloud-sun text-yellow-400 text-3xl my-3"></i>
+                    <p class="text-lg"> 30°C </p>
+                </div>
+
+                <!-- Card -->
+                <div class="border rounded-xl p-3 text-center hover:bg-blue-50 hover:scale-105 duration-300 cursor-pointer">
+                    <h3 class="text-sm font-medium"> 6 PM </h3>
+                    <i class="fa-solid fa-sun text-yellow-400 text-3xl my-3"></i>
+                    <p class="text-lg"> 29°C </p>
+                </div>
+
+                <!-- Card -->
+                <div class="border rounded-xl p-3 text-center hover:bg-blue-50 hover:scale-105 duration-300 cursor-pointer">
+                    <h3 class="text-sm font-medium"> 7 PM </h3>
+                    <i class="fa-solid fa-moon text-indigo-500 text-3xl my-3"></i>
+                    <p class="text-lg"> 28°C </p>
+                </div>
+
+                <!-- Card -->
+                <div class="border rounded-xl p-3 text-center hover:bg-blue-50 hover:scale-105 duration-300 cursor-pointer">
+                    <h3 class="text-sm font-medium"> 8 PM </h3>
+                    <i class="fa-solid fa-moon text-indigo-500 text-3xl my-3"></i>
+                    <p class="text-lg"> 27°C </p>
+                </div>
+
+                <!-- Card -->
+                <div class="border rounded-xl p-3 text-center hover:bg-blue-50 hover:scale-105 duration-300 cursor-pointer">
+                    <h3 class="text-sm font-medium"> 9 PM </h3>
+                    <i class="fa-solid fa-moon text-indigo-500 text-3xl my-3"></i>
+                    <p class="text-lg"> 26°C </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+
+            <!-- Humidity -->
+            <div class="bg-white rounded-2xl p-4 shadow-sm hover:shadow-xl hover:-translate-y-1 duration-300 cursor-pointer">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-droplet text-blue-500 text-2xl"></i>
+                    <div>
+                        <h3 class="text-base"> Humidity </h3>
+                        <p id="humidity1" class="text-xl font-semibold mt-1"> 65% </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wind -->
+            <div class="bg-white rounded-2xl p-4 shadow-sm hover:shadow-xl hover:-translate-y-1 duration-300 cursor-pointer">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-wind text-blue-500 text-2xl"></i>
+                    <div>
+                        <h3 class="text-base"> Wind </h3>
+                        <p id="wind1" class="text-xl font-semibold mt-1"> 12 km/h </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pressure -->
+            <div class="bg-white rounded-2xl p-4 shadow-sm hover:shadow-xl hover:-translate-y-1 duration-300 cursor-pointer">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-gauge text-blue-500 text-2xl"></i>
+                    <div>
+                        <h3 class="text-base"> Pressure </h3>
+                        <p id="pressure1" class="text-xl font-semibold mt-1"> 1012 hPa </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visibility -->
+            <div class="bg-white rounded-2xl p-4 shadow-sm hover:shadow-xl hover:-translate-y-1 duration-300 cursor-pointer">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-eye text-blue-500 text-2xl"></i>
+                    <div>
+                        <h3 class="text-base"> Visibility </h3>
+                        <p id="visibility" class="text-xl font-semibold mt-1"> 10 km </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="bg-white rounded-2xl p-6 shadow-sm mt-6">
+
+            <!-- Heading -->
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-800">
+                        Latest from the Blog
+                    </h2>
+                    <p class="text-gray-500 mt-1">
+                        Insights and updates from weather experts.
+                    </p>
+                </div>
+
+                <a href="#" class="text-blue-500 font-medium hover:underline">
+                    View All Articles →
+                </a>
+            </div>
+
+            <!-- Blog Cards -->
+            <div class="grid md:grid-cols-3 gap-6">
+
+                <!-- Blog 1 -->
+                <div class="border rounded-2xl overflow-hidden hover:shadow-xl duration-300 hover:-translate-y-1 cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21"
+                        class="w-full h-56 object-cover">
+
+                    <div class="p-5">
+                        <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm">
+                            Forecast
+                        </span>
+
+                        <h3 class="text-xl font-semibold mt-4">
+                            Understanding Weather Forecasting
+                        </h3>
+
+                        <p class="text-gray-500 mt-3">
+                            Learn how meteorologists predict weather using satellites,
+                            radar systems, and AI forecasting models.
+                        </p>
+
+                        <p class="text-gray-400 text-sm mt-5">
+                            July 12, 2026 • 6 min read
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Blog 2 -->
+                <div class="border rounded-2xl overflow-hidden hover:shadow-xl duration-300 hover:-translate-y-1 cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1534088568595-a066f410bcda"
+                        class="w-full h-56 object-cover">
+
+                    <div class="p-5">
+                        <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm">
+                            Climate
+                        </span>
+
+                        <h3 class="text-xl font-semibold mt-4">
+                            Why Climate Patterns Matter
+                        </h3>
+
+                        <p class="text-gray-500 mt-3">
+                            Explore how changing global temperatures influence local
+                            weather systems and daily forecasts.
+                        </p>
+
+                        <p class="text-gray-400 text-sm mt-5">
+                            July 15, 2026 • 8 min read
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Blog 3 -->
+                <div class="border rounded-2xl overflow-hidden hover:shadow-xl duration-300 hover:-translate-y-1 cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1513002749550-c59d786b8e6c"
+                        class="w-full h-56 object-cover">
+
+                    <div class="p-5">
+                        <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm">
+                            Technology
+                        </span>
+
+                        <h3 class="text-xl font-semibold mt-4">
+                            Future of Smart Weather Apps
+                        </h3>
+
+                        <p class="text-gray-500 mt-3">
+                            Discover how AI-powered weather apps are transforming
+                            forecasting accuracy for everyone.
+                        </p>
+
+                        <p class="text-gray-400 text-sm mt-5">
+                            July 18, 2026 • 5 min read
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-500 text-sm py-2"> © 2026 WeatherNow. All rights reserved. </footer>
+    </div>
+
+    <!-- Script -->
+    <script>
+        const city = document.getElementById("city");
+          const btn = document.getElementById("searchBtn");
+        
+          // search button click
+          btn.addEventListener("click", getWeather);
+        
+          //  Search Enter
+          city.addEventListener("keydown", e => {
+          if(e.key == "Enter") getWeather();
+        });
+        
+          // page reload → last city auto load
+          window.addEventListener("load", () => {
+            const savedCity = localStorage.getItem("city");
+        
+            if (savedCity) {
+              document.getElementById("city").value = savedCity;
+              getWeather();
+            }
+          });
+        
+          // main function
+          function getWeather() {
+        
+            const city = document.getElementById("city").value;
+        
+            // city save
+            localStorage.setItem("city", city);
+        
+            // current weather API
+            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=6c09567122c2507bc58bc83f626c7f35&units=metric`)
+            .then(res => res.json())
+            .then(data => {
+        
+              // current date & time
+              const now = new Date();
+        
+              document.getElementById("time").innerText =
+              now.toLocaleDateString() + " • " + now.toLocaleTimeString();
+        
+              // temp
+              document.getElementById("temp").innerHTML =
+              data.main.temp + "°C";
+        
+              // humidity
+              document.getElementById("humidity").innerText =
+              data.main.humidity + "%";
+        
+              document.getElementById("humidity1").innerText =
+              data.main.humidity + "%";
+        
+              // wind
+              document.getElementById("wind").innerText =
+              data.wind.speed + " km/h";
+        
+              document.getElementById("wind1").innerText =
+              data.wind.speed + " km/h";
+        
+              // condition
+              document.getElementById("condition").innerText =
+              data.weather[0].main;
+        
+              // city name
+              document.getElementById("cityName").innerText =
+              data.name;
+        
+              // feels like
+              document.getElementById("feels").innerText =
+              data.main.feels_like + "°C";
+        
+              document.getElementById("feels1").innerText =
+              data.main.feels_like + "°C";
+        
+              // pressure
+              document.getElementById("pressure").innerText =
+              data.main.pressure + " hPa";
+        
+              document.getElementById("pressure1").innerText =
+              data.main.pressure + " hPa";
+        
+              // visibility
+              document.getElementById("visibility").innerText =
+              (data.visibility / 1000) + " km";
+        
+            })
+            .catch(err => console.log(err));
+        
+        
+        
+            // hourly forecast API
+            fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=6c09567122c2507bc58bc83f626c7f35&units=metric`)
+            .then(res => res.json())
+            .then(data => {
+        
+              // hourly container
+              let hourlyContainer = document.getElementById("hourly");
+        
+              // old cards remove
+              hourlyContainer.innerHTML = "";
+        
+              // first 8 items
+              data.list.slice(0, 8).forEach(item => {
+        
+                hourlyContainer.innerHTML += `
+        
+        <div class="border rounded-xl p-3 text-center hover:bg-blue-50 hover:scale-105 duration-300 cursor-pointer">
+        
+          <h3 class="text-sm font-medium">
+            ${new Date(item.dt * 1000).toLocaleTimeString([], {
+              hour: "numeric",
+              minute: "2-digit",
+              hour12: true
+            })}
+          </h3>
+        
+          <p class="text-sm text-gray-500 my-2">
+            ${item.weather[0].main}
+          </p>
+        
+          <p class="text-lg">
+            ${Math.round(item.main.temp)}°C
+          </p>
+        
+        </div>
+        
+        `;
+        
+              });
+        
+            })
+            .catch(err => console.log(err));
+        
+          }
+    </script>
+
+</body>
+
+</html>
